@@ -22,15 +22,17 @@ For further details, please refer to the codebase and associated documentation.
 OAS3
 
 ### Swagger Documentation
-HTTPS Access the API documentation at: [Swagger UI](https://localhost:32773/swagger/index.html)
-HTTP Access the API documentation at: [Swagger UI](http://localhost:32772/swagger/index.html)
+HTTPS Access the API documentation at: [Swagger UI](https://localhost:32773/swagger/index.html) - https://localhost:32773/swagger/index.html
+
+HTTP Access the API documentation at: [Swagger UI](http://localhost:32772/swagger/index.html) - http://localhost:32772/swagger/index.html
 
 ## Endpoints
-
-### AssetsPrices
-- **GET** `/api/AssetsPrices/Historical`
-  - Retrieve historical price information for specified market assets.
 
 ### MarketAssets
 - **GET** `/api/MarketAssets`
   - Get a list of supported market assets.
+    
+### AssetsPrices
+- **GET** `/api/AssetsPrices/Historical`
+  - Retrieve historical price information for specified market assets.
+- **WSS** `api/assetsprices/ws/realtime?assetId={assetId}`
