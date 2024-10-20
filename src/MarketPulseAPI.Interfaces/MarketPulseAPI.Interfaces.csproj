@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarketPriceAPI.Data.Entities\MarketPriceAPI.Data.Entities.csproj" />
+    <ProjectReference Include="..\MarketPulseAPI.Fintacharts.Models\MarketPulseAPI.Fintacharts.Models.csproj" />
+  </ItemGroup>
+
+</Project>

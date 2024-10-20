@@ -1,0 +1,36 @@
+version: '3.8'
+name: marketpulseapi-group 
+
+services:
+  marketpulseapi:
+    image: ${DOCKER_REGISTRY-}marketpulseapimarketpulseapi
+    build:
+      context: .
+      dockerfile: src/MarketPulseAPI/Dockerfile
+    ports:
+      - "32772:80"
+      - "32773:443"
+    depends_on:
+      - marketpulseapi-db
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings__MarketPulseDB=Server=marketpulseapi-db;Database=MarketPulseDB;User=sa;Password=${DB_PASSWORD};TrustServerCertificate=true;
+      - ConnectionStrings_QuartzDB=Server=marketpulseapi-db;Database=QuartzDB;User=sa;Password=${DB_PASSWORD};TrustServerCertificate=true;
+    command: ["./wait-for-it.sh", "marketpulseapi-db:1433", "--", "dotnet", "run"]
+
+  marketpulseapi-db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - SA_PASSWORD=${DB_PASSWORD}
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - dbdata:/var/opt/mssql
+      - ./src/MarketPriceAPI.Data/Scripts/InitQuartzDb.sql:/docker-entrypoint-initdb.d/InitQuartzDb.sql
+    command: >
+     /bin/sh -c "/opt/mssql/bin/sqlservr & sleep 30; echo 'SQL Server is now running!';
+     /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD} -d master -i /docker-entrypoint-initdb.d/InitQuartzDb.sql -C; wait"
+
+volumes:
+  dbdata:
