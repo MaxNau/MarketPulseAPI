@@ -34,5 +34,6 @@ HTTP Access the API documentation at: [Swagger UI](http://localhost:32772/swagge
     
 ### AssetsPrices
 - **GET** `/api/AssetsPrices/Historical`
-  - Retrieve historical price information for specified market assets.
+  - Retrieve historical price information for specified market asset.
 - **WSS** `api/assetsprices/ws/realtime?assetId={assetId}`
+  - Subscribe for realtime price information for specified market asset.  
